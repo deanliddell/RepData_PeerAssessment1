@@ -1,6 +1,7 @@
 # Reproducible Research: Peer Assignment 1
 
 
+***
 ## Loading and preprocessing the data
 
 Show any code that is needed to:
@@ -39,19 +40,30 @@ message("Reading 'activity.csv' into data frame.")
 df <- read.csv("activity.csv", header=TRUE)
 ```
 
+
 #### OPTIONAL CODE AND NOTES ON DATES AND TIMES:
 
-**message("Seting up datetime field.")  
-df\$datetime = as.POSIXct(paste(df\$date, sprintf("%04d",df\$interval)), format="%Y-%m-%d%H%M")**
+You might want to consider adding these two code chunks (below) to the loading 
+and processing of data, though they are presented here as 'options' and are not 
+included in this program.
+
+
+```r
+# Optional:
+message("Seting up datetime field.")  
+df$datetime = as.POSIXct(paste(df$date, sprintf("%04d",df$interval)), format="%Y-%m-%d%H%M")
+```
 
 To extract the 'hour' and 'minute' from the POSIXct field 'datetime' as a 'pretty' 
 character strings that can be grouped and used for plotting tick marks use a piece 
-of code like this:
+of code like this: (The 'paste' and the 'format' functions come from the R {base} 
+package which is typically loaded by default.)
 
-**paste(format(h\$datetime,"%H"),format(h\$datetime,"%M"),sep=":")**
 
-The 'paste' and the 'format' functions come from the R {base} package which is 
-typically loaded by default.
+```r
+# Optional:
+paste(format(h$datetime,"%H"),format(h$datetime,"%M"),sep=":")
+```
 
 To extract the 'weekdays' from the POSIXct field 'datetime' (so the data can be 
 grouped by weekdays versus weekends) use forms the 'weekdays' or 'wdays' functions 
@@ -77,6 +89,7 @@ if (!("lubridate" %in% loadedNamespaces())) {
 ```
 
 
+***
 ## What is mean total number of steps taken per day?
 
 For this part of the assignment, you can ignore the missing values in the dataset.
@@ -151,11 +164,11 @@ if (!("ggplot2" %in% loadedNamespaces())) {
 ```
 
 ```r
-message("Plotting the frequency of daily steps taken during the 61? day period.")
+message("Plotting the frequency of daily steps taken during the 61 day period.")
 ```
 
 ```
-## Plotting the frequency of daily steps taken during the 61? day period.
+## Plotting the frequency of daily steps taken during the 61 day period.
 ```
 
 ```r
@@ -175,7 +188,7 @@ print(
 )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
 
 Report mean and median of distribution inside of message.
 
@@ -191,6 +204,7 @@ message(sprintf("For the distribution \"Daily Steps\"
 ```
 
 
+***
 ## What is the average daily activity pattern?
 
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) 
@@ -229,7 +243,7 @@ print(
 )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-7-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 **Note:** Add 'geom_area(fill = "lightsteelblue") +' (following geom_line) in the 
 above ggplot code block to fill the area under the line segment.
@@ -247,6 +261,7 @@ message(sprintf("For the distribution \"Average Daily Activity Pattern\"
 ```
 
 
+***
 ## Imputing missing values
 
 Note that there are a number of days/intervals where there are missing values 
@@ -351,7 +366,7 @@ print(
 )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
 
 Report mean and median of distribution inside of message.
 
@@ -367,6 +382,7 @@ message(sprintf("For the \"revised\" distribution \"Daily Steps\"
 ```
 
 
+***
 ## Are there differences in activity patterns between weekdays and weekends?
 
 Add a new 'factor' for 'Weekday' versus 'Weekend' whose underlying levels are 
@@ -397,7 +413,7 @@ j <- ddf %>%
 print(
     ggplot(data = j, aes(x = time, y = average)) +
         geom_line(color = "black", size = 0.5) +
-        facet_grid(day ~ ., scales = "free") +
+        facet_grid(day ~ .) +
         labs(x = "Time of Day") +
         labs(y = "Mean Number of Steps") +
         labs(title = "(Revised) Average Daily Activity Pattern \n Weekdays versus Weekends") +
@@ -408,8 +424,10 @@ print(
 )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 
 
+
+***
 ## Conclusions
 
 Clearly, this individual peaks in the morning hours on both 'weekdays' and 
