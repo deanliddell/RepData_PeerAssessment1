@@ -250,14 +250,20 @@ above ggplot code block to fill the area under the line segment.
 
 
 ```r
+# Note: 'max' function returns maximum value in vector, whereas 'which.max'
+# return index of vector that contains maximum value. We apply these to the 'h'
+# object we create above.
+#
 message(sprintf("For the distribution \"Average Daily Activity Pattern\" 
-    the largest averge number of steps in a 5-minute interval is: %.0f", 
-    which.max(h$average)))
+    the largest averge number of steps in a 5-minute interval is: %.0f, 
+    and the interval (time) is: %.0f", max(h$average), 
+    h$time[which.max(h$average)]))
 ```
 
 ```
 ## For the distribution "Average Daily Activity Pattern" 
-##     the largest averge number of steps in a 5-minute interval is: 104
+##     the largest averge number of steps in a 5-minute interval is: 206, 
+##     and the interval (time) is: 835
 ```
 
 
